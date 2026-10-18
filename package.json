@@ -1,7 +1,7 @@
 {
   "name": "forme-siena",
   "version": "1.0.0",
-  "description": "Formé (darra'a) and Siena (activewear) online store with Payload CMS and MyFatoorah payments",
+  "description": "Formé (activewear) and Siena (darra'a) online store with Payload CMS and MyFatoorah payments",
   "license": "MIT",
   "type": "module",
   "scripts": {

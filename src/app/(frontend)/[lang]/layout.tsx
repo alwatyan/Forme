@@ -33,7 +33,7 @@ const arabic = IBM_Plex_Sans_Arabic({
 
 export const metadata: Metadata = {
   title: { default: 'Formé · Siena', template: '%s — Formé · Siena' },
-  description: 'Formé darra’a and kaftans, and Siena activewear. Delivered across Kuwait.',
+  description: 'Formé activewear, and Siena darra’a and kaftans. Delivered across Kuwait.',
 }
 
 // Pages read products and settings from the CMS on each request, so edits show up immediately.

@@ -51,11 +51,11 @@ async function placeholder(name: string, top: string, bottom: string, width = 90
 
 type Cat = { en: string; ar: string; brand: 'forme' | 'siena'; colors: [string, string] }
 const categoryDefs: Cat[] = [
-  { en: 'Darra’a', ar: 'دراعات', brand: 'forme', colors: ['#d9cfc4', '#a8957f'] },
-  { en: 'Kaftans', ar: 'قفاطين', brand: 'forme', colors: ['#3a3735', '#141312'] },
-  { en: 'Leggings', ar: 'ليقنز', brand: 'siena', colors: ['#8e7965', '#4f4337'] },
-  { en: 'Sports bras', ar: 'حمالات رياضية', brand: 'siena', colors: ['#e6d9ca', '#b89f86'] },
-  { en: 'Sets', ar: 'أطقم', brand: 'siena', colors: ['#cdb59c', '#76624f'] },
+  { en: 'Darra’a', ar: 'دراعات', brand: 'siena', colors: ['#d9cfc4', '#a8957f'] },
+  { en: 'Kaftans', ar: 'قفاطين', brand: 'siena', colors: ['#3a3735', '#141312'] },
+  { en: 'Leggings', ar: 'ليقنز', brand: 'forme', colors: ['#6c6965', '#161616'] },
+  { en: 'Sports bras', ar: 'حمالات رياضية', brand: 'forme', colors: ['#e4e2dd', '#a9a6a1'] },
+  { en: 'Sets', ar: 'أطقم', brand: 'forme', colors: ['#cfcdc9', '#4a4845'] },
 ]
 const categories: Record<string, number> = {}
 for (const [i, c] of categoryDefs.entries()) {
@@ -88,7 +88,7 @@ const samples: Sample[] = [
   {
     en: 'Noor Darra’a',
     ar: 'دراعة نور',
-    brand: 'forme',
+    brand: 'siena',
     category: 'Darra’a',
     price: 38,
     colors: [
@@ -101,7 +101,7 @@ const samples: Sample[] = [
   {
     en: 'Layal Darra’a',
     ar: 'دراعة ليال',
-    brand: 'forme',
+    brand: 'siena',
     category: 'Darra’a',
     price: 45,
     colors: [
@@ -114,7 +114,7 @@ const samples: Sample[] = [
   {
     en: 'Reem Kaftan',
     ar: 'قفطان ريم',
-    brand: 'forme',
+    brand: 'siena',
     category: 'Kaftans',
     price: 52,
     compareAtPrice: 65,
@@ -128,7 +128,7 @@ const samples: Sample[] = [
   {
     en: 'Dana Kaftan',
     ar: 'قفطان دانة',
-    brand: 'forme',
+    brand: 'siena',
     category: 'Kaftans',
     price: 48,
     colors: [
@@ -141,12 +141,12 @@ const samples: Sample[] = [
   {
     en: 'Sculpt Legging',
     ar: 'ليقنز سكلبت',
-    brand: 'siena',
+    brand: 'forme',
     category: 'Leggings',
     price: 18,
     colors: [
-      ['#6b5a4a', '#4f4337'],
-      ['#5e4f41', '#43392f'],
+      ['#3b3b3b', '#161616'],
+      ['#2e2e2e', '#111111'],
     ],
     sizes: ['XS', 'S', 'M', 'L'],
     featured: true,
@@ -154,12 +154,12 @@ const samples: Sample[] = [
   {
     en: 'Flow Bra',
     ar: 'حمالة فلو',
-    brand: 'siena',
+    brand: 'forme',
     category: 'Sports bras',
     price: 12,
     colors: [
-      ['#d8c3ad', '#b89f86'],
-      ['#cdb59c', '#a88e74'],
+      ['#d9d7d3', '#a9a6a1'],
+      ['#cfcdc9', '#9c9993'],
     ],
     sizes: ['XS', 'S', 'M', 'L'],
     featured: true,
@@ -167,12 +167,12 @@ const samples: Sample[] = [
   {
     en: 'Studio Set',
     ar: 'طقم ستوديو',
-    brand: 'siena',
+    brand: 'forme',
     category: 'Sets',
     price: 29,
     colors: [
-      ['#efe5d9', '#d6c6b3'],
-      ['#e6d9ca', '#cbb8a2'],
+      ['#efeee9', '#c9c6bf'],
+      ['#e4e2dd', '#bdbab3'],
     ],
     sizes: ['S', 'M', 'L'],
     featured: true,
@@ -180,12 +180,12 @@ const samples: Sample[] = [
   {
     en: 'Pace Legging',
     ar: 'ليقنز بيس',
-    brand: 'siena',
+    brand: 'forme',
     category: 'Leggings',
     price: 17,
     colors: [
-      ['#9a8571', '#76624f'],
-      ['#8e7965', '#6a5745'],
+      ['#77746f', '#4a4845'],
+      ['#6c6965', '#403e3b'],
     ],
     sizes: ['XS', 'S', 'M'],
     featured: true,
@@ -233,10 +233,10 @@ await payload.updateGlobal({
   data: {
     announcements: [
       { text: 'Free delivery over 40 KWD' },
-      { text: 'New Formé darra’a for the season' },
+      { text: 'New Siena darra’a for the season' },
     ],
-    formeTagline: 'Darra’a & kaftans',
-    sienaTagline: 'Activewear, made to move',
+    formeTagline: 'Activewear, made to move',
+    sienaTagline: 'Darra’a & kaftans',
     shippingFee: 2,
     freeShippingThreshold: 40,
   },
@@ -248,17 +248,17 @@ await payload.updateGlobal({
   data: {
     announcements: (settings.announcements ?? []).map((a, i) => ({
       id: a.id,
-      text: ['توصيل مجاني للطلبات فوق ٤٠ د.ك', 'دراعات فورميه الجديدة للموسم'][i],
+      text: ['توصيل مجاني للطلبات فوق ٤٠ د.ك', 'دراعات سيينا الجديدة للموسم'][i],
     })),
-    formeTagline: 'دراعات وقفاطين',
-    sienaTagline: 'ملابس رياضية للحركة',
+    formeTagline: 'ملابس رياضية للحركة',
+    sienaTagline: 'دراعات وقفاطين',
   },
 })
 
-const formeHero = await placeholder('Formé cover', '#cfc4b8', '#8d7b69', 1800, 1100)
-const formeHeroMobile = await placeholder('Formé cover phone', '#cfc4b8', '#8d7b69', 900, 1500)
-const sienaHero = await placeholder('Siena cover', '#9a8571', '#43392f', 1800, 1100)
-const sienaHeroMobile = await placeholder('Siena cover phone', '#9a8571', '#43392f', 900, 1500)
+const formeHero = await placeholder('Formé cover', '#8f8a84', '#2b2927', 1800, 1100)
+const formeHeroMobile = await placeholder('Formé cover phone', '#8f8a84', '#2b2927', 900, 1500)
+const sienaHero = await placeholder('Siena cover', '#d8cbbb', '#9a8571', 1800, 1100)
+const sienaHeroMobile = await placeholder('Siena cover phone', '#d8cbbb', '#9a8571', 900, 1500)
 
 await payload.updateGlobal({
   slug: 'homepage',
@@ -270,7 +270,7 @@ await payload.updateGlobal({
         media: formeHero.id,
         mobileMedia: formeHeroMobile.id,
         logo: 'forme',
-        title: 'The new season',
+        title: 'Made to move',
         linkBrand: 'forme',
       },
       {
@@ -284,14 +284,14 @@ await payload.updateGlobal({
         blockType: 'statement',
         text: 'Best selling pieces',
         subtitle: 'Feminine and flattering.',
-        linkBrand: 'forme',
+        linkBrand: 'siena',
       },
       {
         blockType: 'hero',
         media: sienaHero.id,
         mobileMedia: sienaHeroMobile.id,
         logo: 'siena',
-        title: 'Made to move',
+        title: 'The new season',
         linkBrand: 'siena',
       },
       {
@@ -307,10 +307,10 @@ await payload.updateGlobal({
 })
 const home = await payload.findGlobal({ slug: 'homepage', depth: 0 })
 const arText: Record<string, Record<string, string>> = {
-  0: { title: 'الموسم الجديد' },
+  0: { title: 'صُممت للحركة' },
   1: { title: 'فورميه — وصل حديثاً' },
   2: { text: 'القطع الأكثر مبيعاً', subtitle: 'أنيقة ومريحة.' },
-  3: { title: 'صُممت للحركة' },
+  3: { title: 'الموسم الجديد' },
   4: { title: 'سيينا — وصل حديثاً' },
   5: { title: 'تسوّقي حسب الفئة' },
 }

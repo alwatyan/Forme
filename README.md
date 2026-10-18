@@ -2,8 +2,8 @@
 
 One online store for two brands:
 
-- **Formé** — darra’a (دراعات) and kaftans
-- **Siena** — activewear
+- **Formé** — activewear
+- **Siena** — darra’a (دراعات) and kaftans
 
 Each brand has its own section, colours and logo, and they share one bag and one checkout. The shop is in English
 and Arabic (right-to-left), payments go through **MyFatoorah** (KNET, Visa/Mastercard, Apple Pay), and the seller
@@ -57,8 +57,8 @@ optional; if it is left empty, the English text is shown.
    optional **original price** to show a sale. Set **Status** to *Hidden* to take a product off the shop without
    deleting it, and tick **Featured** to show it on the home page.
 
-**Categories**: the filters on each brand page and in the menu (for example *Darra’a*, *Kaftans*, *Leggings*,
-*Sets*). Give each one a picture to use it in category tiles.
+**Categories**: the filters on each brand page and in the menu (for example *Leggings*, *Sets*, *Darra’a*,
+*Kaftans*). Give each one a picture to use it in category tiles.
 
 **Home page**: build the home page from sections and drag them into any order:
 
