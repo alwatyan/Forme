@@ -4,6 +4,7 @@ export const Media: CollectionConfig = {
   slug: 'media',
   admin: {
     group: 'Shop',
+    description: 'Pictures and short videos (MP4) used on the site.',
   },
   access: {
     read: () => true,
@@ -18,7 +19,7 @@ export const Media: CollectionConfig = {
     },
   ],
   upload: {
-    mimeTypes: ['image/*'],
+    mimeTypes: ['image/*', 'video/mp4', 'video/webm'],
     focalPoint: true,
     imageSizes: [
       { name: 'thumbnail', width: 400 },

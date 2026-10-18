@@ -79,7 +79,7 @@ export function Providers({ lang, t, children }: I18n & { children: React.ReactN
   }, [items, hydrated])
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : ''
+    document.documentElement.classList.toggle('lock-cart', isOpen)
   }, [isOpen])
 
   const add = useCallback<Cart['add']>((item, quantity = 1) => {

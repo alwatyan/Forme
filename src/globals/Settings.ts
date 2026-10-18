@@ -12,32 +12,17 @@ export const Settings: GlobalConfig = {
       type: 'tabs',
       tabs: [
         {
-          label: 'Home page',
+          label: 'Announcements & brands',
           fields: [
             {
-              name: 'announcement',
-              type: 'text',
-              localized: true,
+              name: 'announcements',
+              type: 'array',
+              labels: { singular: 'Message', plural: 'Messages' },
               admin: {
-                description: 'The thin bar at the very top of every page. Leave empty to hide it.',
+                description:
+                  'Messages in the black bar at the top of every page. Shoppers can flip through them with the arrows.',
               },
-            },
-            {
-              type: 'row',
-              fields: [
-                {
-                  name: 'formeHero',
-                  label: 'Formé cover picture',
-                  type: 'upload',
-                  relationTo: 'media',
-                },
-                {
-                  name: 'sienaHero',
-                  label: 'Siena cover picture',
-                  type: 'upload',
-                  relationTo: 'media',
-                },
-              ],
+              fields: [{ name: 'text', type: 'text', localized: true, required: true }],
             },
             {
               type: 'row',

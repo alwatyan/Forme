@@ -12,7 +12,9 @@ import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Orders } from './collections/Orders'
 import { Products } from './collections/Products'
+import { Subscribers } from './collections/Subscribers'
 import { Users } from './collections/Users'
+import { Homepage } from './globals/Homepage'
 import { Settings } from './globals/Settings'
 import { migrations } from './migrations'
 
@@ -30,8 +32,8 @@ export default buildConfig({
       titleSuffix: ' — Formé · Siena',
     },
   },
-  collections: [Products, Categories, Orders, Media, Users],
-  globals: [Settings],
+  collections: [Products, Categories, Orders, Subscribers, Media, Users],
+  globals: [Homepage, Settings],
   localization: {
     locales: [
       { code: 'en', label: 'English' },

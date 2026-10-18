@@ -29,6 +29,12 @@ export const Categories: CollectionConfig = {
       required: true,
       index: true,
     },
+    {
+      name: 'image',
+      type: 'upload',
+      relationTo: 'media',
+      admin: { description: 'Shown on category tiles on the home page.' },
+    },
     slugField(),
     {
       name: 'sortOrder',

@@ -23,13 +23,18 @@ if (existing) {
   process.exit(0)
 }
 
-async function placeholder(name: string, top: string, bottom: string) {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200">
+async function placeholder(name: string, top: string, bottom: string, width = 900, height = 1200) {
+  // A soft gradient with a simple figure, standing in for real product photography.
+  const cx = width / 2
+  const unit = Math.min(width, height * 0.75) / 900
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
     <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="${top}"/><stop offset="1" stop-color="${bottom}"/></linearGradient></defs>
-    <rect width="900" height="1200" fill="url(#g)"/>
-    <ellipse cx="450" cy="330" rx="70" ry="86" fill="rgba(255,255,255,0.35)"/>
-    <path d="M330 470 Q450 420 570 470 L640 1080 Q450 1120 260 1080 Z" fill="rgba(255,255,255,0.28)"/>
+    <rect width="${width}" height="${height}" fill="url(#g)"/>
+    <g transform="translate(${cx} ${height * 0.12}) scale(${unit * (height / 1200) * 1.1})">
+      <ellipse cx="0" cy="190" rx="70" ry="86" fill="rgba(255,255,255,0.35)"/>
+      <path d="M-120 330 Q0 280 120 330 L190 940 Q0 980 -190 940 Z" fill="rgba(255,255,255,0.28)"/>
+    </g>
   </svg>`
   const data = await sharp(Buffer.from(svg)).jpeg({ quality: 82 }).toBuffer()
   return payload.create({
@@ -44,20 +49,25 @@ async function placeholder(name: string, top: string, bottom: string) {
   })
 }
 
-type Cat = { en: string; ar: string; brand: 'forme' | 'siena' }
+type Cat = { en: string; ar: string; brand: 'forme' | 'siena'; colors: [string, string] }
 const categoryDefs: Cat[] = [
-  { en: 'Darra’a', ar: 'دراعات', brand: 'forme' },
-  { en: 'Kaftans', ar: 'قفاطين', brand: 'forme' },
-  { en: 'Leggings', ar: 'ليقنز', brand: 'siena' },
-  { en: 'Sports bras', ar: 'حمالات رياضية', brand: 'siena' },
-  { en: 'Sets', ar: 'أطقم', brand: 'siena' },
+  { en: 'Darra’a', ar: 'دراعات', brand: 'forme', colors: ['#d9cfc4', '#a8957f'] },
+  { en: 'Kaftans', ar: 'قفاطين', brand: 'forme', colors: ['#3a3735', '#141312'] },
+  { en: 'Leggings', ar: 'ليقنز', brand: 'siena', colors: ['#8e7965', '#4f4337'] },
+  { en: 'Sports bras', ar: 'حمالات رياضية', brand: 'siena', colors: ['#e6d9ca', '#b89f86'] },
+  { en: 'Sets', ar: 'أطقم', brand: 'siena', colors: ['#cdb59c', '#76624f'] },
 ]
 const categories: Record<string, number> = {}
 for (const [i, c] of categoryDefs.entries()) {
   const doc = await payload.create({
     collection: 'categories',
     locale: 'en',
-    data: { name: c.en, brand: c.brand, sortOrder: i },
+    data: {
+      name: c.en,
+      brand: c.brand,
+      sortOrder: i,
+      image: (await placeholder(c.en, ...c.colors)).id,
+    },
   })
   await payload.update({ collection: 'categories', id: doc.id, locale: 'ar', data: { name: c.ar } })
   categories[c.en] = doc.id
@@ -221,20 +231,97 @@ await payload.updateGlobal({
   slug: 'settings',
   locale: 'en',
   data: {
-    announcement: 'Free delivery across Kuwait on orders over 40 KWD',
+    announcements: [
+      { text: 'Free delivery over 40 KWD' },
+      { text: 'New Formé darra’a for the season' },
+    ],
     formeTagline: 'Darra’a & kaftans',
     sienaTagline: 'Activewear, made to move',
     shippingFee: 2,
     freeShippingThreshold: 40,
   },
 })
+const settings = await payload.findGlobal({ slug: 'settings', depth: 0 })
 await payload.updateGlobal({
   slug: 'settings',
   locale: 'ar',
   data: {
-    announcement: 'توصيل مجاني داخل الكويت للطلبات فوق ٤٠ د.ك',
+    announcements: (settings.announcements ?? []).map((a, i) => ({
+      id: a.id,
+      text: ['توصيل مجاني للطلبات فوق ٤٠ د.ك', 'دراعات فورميه الجديدة للموسم'][i],
+    })),
     formeTagline: 'دراعات وقفاطين',
     sienaTagline: 'ملابس رياضية للحركة',
+  },
+})
+
+const formeHero = await placeholder('Formé cover', '#cfc4b8', '#8d7b69', 1800, 1100)
+const formeHeroMobile = await placeholder('Formé cover phone', '#cfc4b8', '#8d7b69', 900, 1500)
+const sienaHero = await placeholder('Siena cover', '#9a8571', '#43392f', 1800, 1100)
+const sienaHeroMobile = await placeholder('Siena cover phone', '#9a8571', '#43392f', 900, 1500)
+
+await payload.updateGlobal({
+  slug: 'homepage',
+  locale: 'en',
+  data: {
+    sections: [
+      {
+        blockType: 'hero',
+        media: formeHero.id,
+        mobileMedia: formeHeroMobile.id,
+        logo: 'forme',
+        title: 'The new season',
+        linkBrand: 'forme',
+      },
+      {
+        blockType: 'products',
+        title: 'Formé — New in',
+        brand: 'forme',
+        show: 'featured',
+        limit: 8,
+      },
+      {
+        blockType: 'statement',
+        text: 'Best selling pieces',
+        subtitle: 'Feminine and flattering.',
+        linkBrand: 'forme',
+      },
+      {
+        blockType: 'hero',
+        media: sienaHero.id,
+        mobileMedia: sienaHeroMobile.id,
+        logo: 'siena',
+        title: 'Made to move',
+        linkBrand: 'siena',
+      },
+      {
+        blockType: 'products',
+        title: 'Siena — New in',
+        brand: 'siena',
+        show: 'featured',
+        limit: 8,
+      },
+      { blockType: 'categories', title: 'Shop by category', categories: Object.values(categories) },
+    ],
+  },
+})
+const home = await payload.findGlobal({ slug: 'homepage', depth: 0 })
+const arText: Record<string, Record<string, string>> = {
+  0: { title: 'الموسم الجديد' },
+  1: { title: 'فورميه — وصل حديثاً' },
+  2: { text: 'القطع الأكثر مبيعاً', subtitle: 'أنيقة ومريحة.' },
+  3: { title: 'صُممت للحركة' },
+  4: { title: 'سيينا — وصل حديثاً' },
+  5: { title: 'تسوّقي حسب الفئة' },
+}
+await payload.updateGlobal({
+  slug: 'homepage',
+  locale: 'ar',
+  data: {
+    sections: (home.sections ?? []).map((section, i) => ({
+      ...section,
+      ...arText[i],
+    })) as typeof home.sections,
   },
 })
 

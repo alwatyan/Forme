@@ -9,13 +9,17 @@ Each brand has its own section, colours and logo, and they share one bag and one
 and Arabic (right-to-left), payments go through **MyFatoorah** (KNET, Visa/Mastercard, Apple Pay), and the seller
 manages everything from an admin panel at `/admin`.
 
-| Home | Product | Arabic, mobile |
-| --- | --- | --- |
-| ![Home](docs/screenshots/home.png) | ![Product](docs/screenshots/product.png) | ![Arabic mobile](docs/screenshots/mobile-arabic.png) |
+The design follows [shop437.com](https://shop437.com): a rotating announcement bar, a transparent header over
+full-screen pictures, sideways product rows with a quick “+” add, big spaced-out words, category tiles, a full-screen
+menu and a “Join the list” button.
 
-| Checkout | Admin: editing a product |
-| --- | --- |
-| ![Checkout](docs/screenshots/checkout.png) | ![Admin](docs/screenshots/admin-product.png) |
+| Home | Product rows | Menu | Siena section |
+| --- | --- | --- | --- |
+| ![Home](docs/screenshots/home-hero.png) | ![Rows](docs/screenshots/home-rows.png) | ![Menu](docs/screenshots/menu.png) | ![Siena](docs/screenshots/siena.png) |
+
+| Quick add (desktop) | Checkout | Admin: editing a product |
+| --- | --- | --- |
+| ![Quick add](docs/screenshots/quick-add.png) | ![Checkout](docs/screenshots/checkout.png) | ![Admin](docs/screenshots/admin-product.png) |
 
 ## Built with
 
@@ -53,13 +57,24 @@ optional; if it is left empty, the English text is shown.
    optional **original price** to show a sale. Set **Status** to *Hidden* to take a product off the shop without
    deleting it, and tick **Featured** to show it on the home page.
 
-**Categories**: the filters on each brand page (for example *Darra’a*, *Kaftans*, *Leggings*, *Sets*).
+**Categories**: the filters on each brand page and in the menu (for example *Darra’a*, *Kaftans*, *Leggings*,
+*Sets*). Give each one a picture to use it in category tiles.
+
+**Home page**: build the home page from sections and drag them into any order:
+
+- *Big picture*: a full-screen picture or MP4 video (with an optional tall version for phones), a title, an optional
+  brand logo and a “Shop Now” button. When it is the first section, the header sits on top of it.
+- *Product row*: a sideways-scrolling row of a brand’s featured products, newest products, or one category.
+- *Big words*: short words such as “Best selling pieces” spread across the page, with a subtitle and link.
+- *Category tiles*: pictures of the categories you choose, with their names underneath.
 
 **Orders**: every paid order, with the customer’s phone and delivery address. Change the status to *Shipped* and
 *Delivered* as you go. Orders that say *Awaiting payment* were not paid.
 
-**Store settings**: the announcement bar, the two cover pictures and taglines on the home page, the delivery fee,
-free delivery threshold, WhatsApp number, email and Instagram links.
+**Subscribers**: emails from “Join the list”. Select them in the list view to export.
+
+**Store settings**: the announcement bar messages, the brand taglines, the delivery fee, the free delivery threshold,
+the WhatsApp number, email and Instagram links.
 
 **Users**: add staff accounts.
 
@@ -101,8 +116,11 @@ Any Node.js host works too (Railway, Render, a VPS). Without `BLOB_READ_WRITE_TO
 
 ## For developers
 
-- `src/collections`, `src/globals`: the CMS data model (products, categories, orders, media, users, settings)
-- `src/app/(frontend)/[lang]`: the shop pages (`/en`, `/ar`, `/en/forme`, `/en/siena/<product>`, checkout, order)
+- `src/collections`, `src/globals`: the CMS data model (products, categories, orders, subscribers, media, users,
+  home page sections, settings)
+- `src/components/home`: how each home page section is drawn
+- `src/app/(frontend)/[lang]`: the shop pages (`/en`, `/ar`, `/en/forme`, `/en/siena/<product>`, search,
+  checkout, order)
 - `src/app/payment`: MyFatoorah callback and webhook
 - `src/lib/i18n.ts`: English and Arabic interface text
 - `src/app/(frontend)/styles.css`: all shop styling. Siena’s warm palette is applied automatically on its pages.

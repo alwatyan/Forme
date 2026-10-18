@@ -70,6 +70,7 @@ export interface Config {
     products: Product;
     categories: Category;
     orders: Order;
+    subscribers: Subscriber;
     media: Media;
     users: User;
     'payload-kv': PayloadKv;
@@ -82,6 +83,7 @@ export interface Config {
     products: ProductsSelect<false> | ProductsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     orders: OrdersSelect<false> | OrdersSelect<true>;
+    subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -94,9 +96,11 @@ export interface Config {
   };
   fallbackLocale: ('false' | 'none' | 'null') | false | null | ('en' | 'ar') | ('en' | 'ar')[];
   globals: {
+    homepage: Homepage;
     settings: Setting;
   };
   globalsSelect: {
+    homepage: HomepageSelect<false> | HomepageSelect<true>;
     settings: SettingsSelect<false> | SettingsSelect<true>;
   };
   locale: 'en' | 'ar';
@@ -171,6 +175,8 @@ export interface Product {
   createdAt: string;
 }
 /**
+ * Pictures and short videos (MP4) used on the site.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
@@ -229,6 +235,10 @@ export interface Category {
   name: string;
   brand: 'forme' | 'siena';
   /**
+   * Shown on category tiles on the home page.
+   */
+  image?: (number | null) | Media;
+  /**
    * Used in the web address. Leave empty to generate it from the name.
    */
   slug?: string | null;
@@ -283,6 +293,19 @@ export interface Order {
   locale?: string | null;
   accessToken?: string | null;
   stockDeducted?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * People who joined the list on the website.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscribers".
+ */
+export interface Subscriber {
+  id: number;
+  email: string;
+  locale?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -348,6 +371,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'orders';
         value: number | Order;
+      } | null)
+    | ({
+        relationTo: 'subscribers';
+        value: number | Subscriber;
       } | null)
     | ({
         relationTo: 'media';
@@ -432,6 +459,7 @@ export interface ProductsSelect<T extends boolean = true> {
 export interface CategoriesSelect<T extends boolean = true> {
   name?: T;
   brand?: T;
+  image?: T;
   slug?: T;
   sortOrder?: T;
   updatedAt?: T;
@@ -488,6 +516,16 @@ export interface OrdersSelect<T extends boolean = true> {
   locale?: T;
   accessToken?: T;
   stockDeducted?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscribers_select".
+ */
+export interface SubscribersSelect<T extends boolean = true> {
+  email?: T;
+  locale?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -608,17 +646,90 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
+ * Build the home page from sections. Drag them to change the order.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homepage".
+ */
+export interface Homepage {
+  id: number;
+  sections?:
+    | (
+        | {
+            media: number | Media;
+            /**
+             * A tall picture looks best on phones.
+             */
+            mobileMedia?: (number | null) | Media;
+            title?: string | null;
+            logo?: ('none' | 'forme' | 'siena') | null;
+            /**
+             * Leave empty for “Shop Now”.
+             */
+            buttonLabel?: string | null;
+            hideButton?: boolean | null;
+            linkBrand: 'forme' | 'siena';
+            linkCategory?: (number | null) | Category;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hero';
+          }
+        | {
+            title: string;
+            brand: 'forme' | 'siena';
+            show: 'featured' | 'newest' | 'category';
+            limit?: number | null;
+            category?: (number | null) | Category;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'products';
+          }
+        | {
+            /**
+             * A few short words, e.g. “Best selling pieces”. Each word gets its own line.
+             */
+            text: string;
+            subtitle?: string | null;
+            /**
+             * Leave empty for “Shop now”.
+             */
+            linkLabel?: string | null;
+            linkBrand: 'forme' | 'siena';
+            linkCategory?: (number | null) | Category;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'statement';
+          }
+        | {
+            title?: string | null;
+            /**
+             * Each category uses the picture set on the category itself.
+             */
+            categories: (number | Category)[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'categories';
+          }
+      )[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "settings".
  */
 export interface Setting {
   id: number;
   /**
-   * The thin bar at the very top of every page. Leave empty to hide it.
+   * Messages in the black bar at the top of every page. Shoppers can flip through them with the arrows.
    */
-  announcement?: string | null;
-  formeHero?: (number | null) | Media;
-  sienaHero?: (number | null) | Media;
+  announcements?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
   formeTagline?: string | null;
   sienaTagline?: string | null;
   shippingFee: number;
@@ -638,12 +749,72 @@ export interface Setting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homepage_select".
+ */
+export interface HomepageSelect<T extends boolean = true> {
+  sections?:
+    | T
+    | {
+        hero?:
+          | T
+          | {
+              media?: T;
+              mobileMedia?: T;
+              title?: T;
+              logo?: T;
+              buttonLabel?: T;
+              hideButton?: T;
+              linkBrand?: T;
+              linkCategory?: T;
+              id?: T;
+              blockName?: T;
+            };
+        products?:
+          | T
+          | {
+              title?: T;
+              brand?: T;
+              show?: T;
+              limit?: T;
+              category?: T;
+              id?: T;
+              blockName?: T;
+            };
+        statement?:
+          | T
+          | {
+              text?: T;
+              subtitle?: T;
+              linkLabel?: T;
+              linkBrand?: T;
+              linkCategory?: T;
+              id?: T;
+              blockName?: T;
+            };
+        categories?:
+          | T
+          | {
+              title?: T;
+              categories?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "settings_select".
  */
 export interface SettingsSelect<T extends boolean = true> {
-  announcement?: T;
-  formeHero?: T;
-  sienaHero?: T;
+  announcements?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
   formeTagline?: T;
   sienaTagline?: T;
   shippingFee?: T;

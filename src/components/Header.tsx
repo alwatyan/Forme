@@ -1,43 +1,19 @@
-import Link from 'next/link'
+import type { Setting } from '@/payload-types'
 
-import type { Dictionary, Locale } from '@/lib/i18n'
+import { AnnouncementBar } from './AnnouncementBar'
+import { SiteHeader, type MenuBrand } from './HeaderClient'
 
-import { CartButton, HeaderLogo, LangSwitch } from './HeaderClient'
+export function Header({ settings, menu }: { settings: Setting; menu: MenuBrand[] }) {
+  const messages = (settings.announcements ?? []).map((a) => a.text).filter(Boolean)
+  const instagram = [
+    settings.formeInstagram && { label: 'Instagram — Formé', href: settings.formeInstagram },
+    settings.sienaInstagram && { label: 'Instagram — Siena', href: settings.sienaInstagram },
+  ].filter((i): i is { label: string; href: string } => Boolean(i))
 
-export function Header({
-  lang,
-  t,
-  announcement,
-}: {
-  lang: Locale
-  t: Dictionary
-  announcement?: string | null
-}) {
   return (
     <>
-      {announcement && <div className="announcement">{announcement}</div>}
-      <header className="header">
-        <nav className="header__side" aria-label="Main">
-          <details className="header__menu">
-            <summary className="header__link">{t.menu}</summary>
-            <div className="header__menu-panel">
-              <Link href={`/${lang}/forme`}>Formé — {t.formeLine}</Link>
-              <Link href={`/${lang}/siena`}>Siena — {t.sienaLine}</Link>
-            </div>
-          </details>
-          <Link href={`/${lang}/forme`} className="header__link header__desktop">
-            Formé
-          </Link>
-          <Link href={`/${lang}/siena`} className="header__link header__desktop">
-            Siena
-          </Link>
-        </nav>
-        <HeaderLogo />
-        <div className="header__side header__side--end">
-          <LangSwitch />
-          <CartButton />
-        </div>
-      </header>
+      <AnnouncementBar messages={messages} />
+      <SiteHeader menu={menu} contact={{ whatsapp: settings.whatsapp, instagram }} />
     </>
   )
 }
