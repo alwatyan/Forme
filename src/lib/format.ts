@@ -2,12 +2,14 @@ import type { Locale } from './i18n'
 
 export const CURRENCY = 'KWD'
 
+/** Prices read like "26 KD"; fils (three decimals) only show when the amount isn't whole. */
 export function formatPrice(value: number, lang: Locale) {
-  return new Intl.NumberFormat(lang === 'ar' ? 'ar-KW-u-nu-latn' : 'en-KW', {
-    style: 'currency',
-    currency: CURRENCY,
-    minimumFractionDigits: 3,
+  const whole = Number.isInteger(roundMoney(value))
+  const amount = new Intl.NumberFormat('en-KW', {
+    minimumFractionDigits: whole ? 0 : 3,
+    maximumFractionDigits: whole ? 0 : 3,
   }).format(value)
+  return `${amount} ${lang === 'ar' ? 'د.ك' : 'KD'}`
 }
 
 /** KWD has three decimal places (fils). */

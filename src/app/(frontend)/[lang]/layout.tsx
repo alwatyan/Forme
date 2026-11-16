@@ -1,5 +1,11 @@
 import type { Metadata } from 'next'
-import { EB_Garamond, IBM_Plex_Sans_Arabic, Jost, Noto_Naskh_Arabic } from 'next/font/google'
+import {
+  EB_Garamond,
+  IBM_Plex_Sans_Arabic,
+  Jost,
+  Noto_Naskh_Arabic,
+  Playfair_Display,
+} from 'next/font/google'
 import { notFound } from 'next/navigation'
 import React from 'react'
 
@@ -18,6 +24,12 @@ const serif = EB_Garamond({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
   variable: '--font-serif',
+})
+// Product names and prices.
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-playfair',
 })
 const sans = Jost({ subsets: ['latin'], weight: ['300', '400', '500'], variable: '--font-sans' })
 const arabicSerif = Noto_Naskh_Arabic({
@@ -75,7 +87,7 @@ export default async function RootLayout({
     <html
       lang={lang}
       dir={lang === 'ar' ? 'rtl' : 'ltr'}
-      className={`${serif.variable} ${sans.variable} ${arabic.variable} ${arabicSerif.variable}`}
+      className={`${serif.variable} ${playfair.variable} ${sans.variable} ${arabic.variable} ${arabicSerif.variable}`}
     >
       <body>
         <Providers lang={lang} t={t}>

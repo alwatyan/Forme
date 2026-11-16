@@ -13,6 +13,7 @@
   --header-h: 68px;
   --ui: var(--font-sans), var(--font-arabic), system-ui, sans-serif;
   --display: var(--font-serif), var(--font-arabic-serif), Georgia, serif;
+  --product: var(--font-playfair), var(--font-arabic-serif), Georgia, serif;
 }
 
 /* Siena: warm cream and earthy brown, from its logo. */
@@ -1003,14 +1004,24 @@ body:has(.hero--first) .header[data-solid='false'] {
 }
 
 .card__name {
-  font-weight: 500;
+  font-family: var(--product);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.25;
 }
 
 .price {
+  font-family: var(--product);
+  letter-spacing: 0.2em;
+  font-variant-numeric: oldstyle-nums;
   display: inline-flex;
   flex-wrap: wrap;
   gap: 0 8px;
   align-items: baseline;
+}
+
+[dir='rtl'] .price {
+  letter-spacing: 0;
 }
 
 .price__was {
@@ -1058,12 +1069,10 @@ body:has(.hero--first) .header[data-solid='false'] {
 
 .product__name {
   margin: 0;
-  font-family: var(--display);
-  font-weight: 500;
+  font-family: var(--product);
+  font-weight: 400;
   font-size: clamp(28px, 3vw, 38px);
   line-height: 1.15;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
 }
 
 [dir='rtl'] .product__name {
