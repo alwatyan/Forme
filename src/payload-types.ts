@@ -138,6 +138,10 @@ export interface UserAuthOperations {
 export interface Product {
   id: number;
   name: string;
+  /**
+   * Optional. A short line under the name, e.g. “Straight Leggings”.
+   */
+  subtitle?: string | null;
   description?: string | null;
   details?: string | null;
   /**
@@ -432,6 +436,7 @@ export interface PayloadMigration {
  */
 export interface ProductsSelect<T extends boolean = true> {
   name?: T;
+  subtitle?: T;
   description?: T;
   details?: T;
   images?: T;

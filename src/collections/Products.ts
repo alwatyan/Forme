@@ -30,6 +30,14 @@ export const Products: CollectionConfig = {
               required: true,
             },
             {
+              name: 'subtitle',
+              type: 'text',
+              localized: true,
+              admin: {
+                description: 'Optional. A short line under the name, e.g. “Straight Leggings”.',
+              },
+            },
+            {
               name: 'description',
               type: 'textarea',
               localized: true,

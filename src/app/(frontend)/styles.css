@@ -533,12 +533,12 @@ body:has(.hero--first) .header[data-solid='false'] {
   font-size: 15px;
 }
 
-/* Hero: full-bleed picture or video with a serif title and a white button */
+/* Hero: full-screen picture with a dark Shop now button */
 .hero {
   position: relative;
   display: grid;
-  place-items: center;
-  min-height: min(92svh, 1000px);
+  place-items: end center;
+  min-height: 100svh;
   overflow: hidden;
   background: var(--stone);
   color: #fff;
@@ -592,8 +592,7 @@ body:has(.hero--first) .header[data-solid='false'] {
   display: grid;
   justify-items: center;
   gap: 24px;
-  padding: 0 var(--gutter);
-  margin-top: 18vh;
+  padding: 0 var(--gutter) clamp(56px, 12svh, 120px);
   text-align: center;
   pointer-events: none;
 }
@@ -624,20 +623,28 @@ body:has(.hero--first) .header[data-solid='false'] {
 .hero__button {
   display: inline-flex;
   align-items: center;
-  min-height: 56px;
-  padding: 0 44px;
-  background: #fff;
-  color: #111;
-  font-size: 17px;
-  font-weight: 500;
+  min-height: 48px;
+  padding: 0 40px;
+  background: #1a1a1a;
+  color: #fff;
+  font-family: var(--product);
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
   transition:
     background-color 0.2s ease,
     color 0.2s ease;
 }
 
+[dir='rtl'] .hero__button {
+  letter-spacing: 0;
+  font-size: 15px;
+}
+
 .hero__button:hover {
-  background: #111;
-  color: #fff;
+  background: #fff;
+  color: #1a1a1a;
 }
 
 /* Product rows (sideways scrolling) */
@@ -1010,10 +1017,24 @@ body:has(.hero--first) .header[data-solid='false'] {
   line-height: 1.25;
 }
 
+.card__subtitle,
+.product__subtitle {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.product__subtitle {
+  margin: -12px 0 0;
+  font-size: 16px;
+}
+
 .price {
   font-family: var(--product);
-  letter-spacing: 0.2em;
-  font-variant-numeric: oldstyle-nums;
+  font-size: 15px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  font-variant-numeric: lining-nums;
   display: inline-flex;
   flex-wrap: wrap;
   gap: 0 8px;
@@ -1081,6 +1102,7 @@ body:has(.hero--first) .header[data-solid='false'] {
 
 .product__sticky > .price {
   font-size: 17px;
+  color: var(--ink);
 }
 
 @media (max-width: 860px) {

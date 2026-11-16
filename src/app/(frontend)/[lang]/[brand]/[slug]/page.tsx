@@ -75,6 +75,7 @@ export default async function ProductPage({ params }: Props) {
         <div className="product__info">
           <div className="product__sticky">
             <h1 className="product__name">{product.name}</h1>
+            {product.subtitle ? <p className="product__subtitle">{product.subtitle}</p> : null}
             <Price price={product.price} compareAt={product.compareAtPrice} lang={lang} />
 
             <AddToBag

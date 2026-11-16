@@ -57,6 +57,7 @@ export function ProductCard({
       </div>
       <Link href={href} className="card__body">
         <span className="card__name">{product.name}</span>
+        {product.subtitle ? <span className="card__subtitle">{product.subtitle}</span> : null}
         <Price price={product.price} compareAt={product.compareAtPrice} lang={lang} />
       </Link>
     </div>
