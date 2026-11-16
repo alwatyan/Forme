@@ -49,10 +49,10 @@ async function placeholder(name: string, top: string, bottom: string, width = 90
   })
 }
 
-type Cat = { en: string; ar: string; brand: 'forme' | 'siena'; colors: [string, string] }
+type Cat = { en: string; ar: string; brand: 'forme' | 'sienna'; colors: [string, string] }
 const categoryDefs: Cat[] = [
-  { en: 'Darra’a', ar: 'دراعات', brand: 'siena', colors: ['#d9cfc4', '#a8957f'] },
-  { en: 'Kaftans', ar: 'قفاطين', brand: 'siena', colors: ['#3a3735', '#141312'] },
+  { en: 'Darra’a', ar: 'دراعات', brand: 'sienna', colors: ['#d9cfc4', '#a8957f'] },
+  { en: 'Kaftans', ar: 'قفاطين', brand: 'sienna', colors: ['#3a3735', '#141312'] },
   { en: 'Leggings', ar: 'ليقنز', brand: 'forme', colors: ['#6c6965', '#161616'] },
   { en: 'Sports bras', ar: 'حمالات رياضية', brand: 'forme', colors: ['#e4e2dd', '#a9a6a1'] },
   { en: 'Sets', ar: 'أطقم', brand: 'forme', colors: ['#cfcdc9', '#4a4845'] },
@@ -76,7 +76,7 @@ for (const [i, c] of categoryDefs.entries()) {
 type Sample = {
   en: string
   ar: string
-  brand: 'forme' | 'siena'
+  brand: 'forme' | 'sienna'
   category: string
   price: number
   compareAtPrice?: number
@@ -88,7 +88,7 @@ const samples: Sample[] = [
   {
     en: 'Noor Darra’a',
     ar: 'دراعة نور',
-    brand: 'siena',
+    brand: 'sienna',
     category: 'Darra’a',
     price: 38,
     colors: [
@@ -101,7 +101,7 @@ const samples: Sample[] = [
   {
     en: 'Layal Darra’a',
     ar: 'دراعة ليال',
-    brand: 'siena',
+    brand: 'sienna',
     category: 'Darra’a',
     price: 45,
     colors: [
@@ -114,7 +114,7 @@ const samples: Sample[] = [
   {
     en: 'Reem Kaftan',
     ar: 'قفطان ريم',
-    brand: 'siena',
+    brand: 'sienna',
     category: 'Kaftans',
     price: 52,
     compareAtPrice: 65,
@@ -128,7 +128,7 @@ const samples: Sample[] = [
   {
     en: 'Dana Kaftan',
     ar: 'قفطان دانة',
-    brand: 'siena',
+    brand: 'sienna',
     category: 'Kaftans',
     price: 48,
     colors: [
@@ -233,7 +233,7 @@ await payload.updateGlobal({
   data: {
     announcements: [
       { text: 'Free delivery over 40 KWD' },
-      { text: 'New Siena darra’a for the season' },
+      { text: 'New Sienna darra’a for the season' },
     ],
     formeTagline: 'Activewear, made to move',
     sienaTagline: 'Darra’a & kaftans',
@@ -257,8 +257,8 @@ await payload.updateGlobal({
 
 const formeHero = await placeholder('Formé cover', '#8f8a84', '#2b2927', 1800, 1100)
 const formeHeroMobile = await placeholder('Formé cover phone', '#8f8a84', '#2b2927', 900, 1500)
-const sienaHero = await placeholder('Siena cover', '#d8cbbb', '#9a8571', 1800, 1100)
-const sienaHeroMobile = await placeholder('Siena cover phone', '#d8cbbb', '#9a8571', 900, 1500)
+const sienaHero = await placeholder('Sienna cover', '#d8cbbb', '#9a8571', 1800, 1100)
+const sienaHeroMobile = await placeholder('Sienna cover phone', '#d8cbbb', '#9a8571', 900, 1500)
 
 await payload.updateGlobal({
   slug: 'homepage',
@@ -284,20 +284,20 @@ await payload.updateGlobal({
         blockType: 'statement',
         text: 'Best selling pieces',
         subtitle: 'Feminine and flattering.',
-        linkBrand: 'siena',
+        linkBrand: 'sienna',
       },
       {
         blockType: 'hero',
         media: sienaHero.id,
         mobileMedia: sienaHeroMobile.id,
-        logo: 'siena',
+        logo: 'sienna',
         title: 'The new season',
-        linkBrand: 'siena',
+        linkBrand: 'sienna',
       },
       {
         blockType: 'products',
-        title: 'Siena — New in',
-        brand: 'siena',
+        title: 'Sienna — New in',
+        brand: 'sienna',
         show: 'featured',
         limit: 8,
       },

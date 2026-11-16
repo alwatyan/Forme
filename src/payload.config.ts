@@ -29,7 +29,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     meta: {
-      titleSuffix: ' — Formé · Siena',
+      titleSuffix: ' — Formé · Sienna',
     },
   },
   collections: [Products, Categories, Orders, Subscribers, Media, Users],

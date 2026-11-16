@@ -44,8 +44,8 @@ const arabic = IBM_Plex_Sans_Arabic({
 })
 
 export const metadata: Metadata = {
-  title: { default: 'Formé · Siena', template: '%s — Formé · Siena' },
-  description: 'Formé activewear, and Siena darra’a and kaftans. Delivered across Kuwait.',
+  title: { default: 'Formé · Sienna', template: '%s — Formé · Sienna' },
+  description: 'Formé activewear, and Sienna darra’a and kaftans. Delivered across Kuwait.',
 }
 
 // Pages read products and settings from the CMS on each request, so edits show up immediately.
@@ -73,7 +73,7 @@ export default async function RootLayout({
       limit: 100,
     }),
   ])
-  const menu: MenuBrand[] = (['forme', 'siena'] as const).map((brand) => ({
+  const menu: MenuBrand[] = (['forme', 'sienna'] as const).map((brand) => ({
     brand,
     tagline:
       (brand === 'forme' ? settings.formeTagline : settings.sienaTagline) ||

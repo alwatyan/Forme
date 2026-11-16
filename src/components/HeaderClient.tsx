@@ -72,7 +72,7 @@ export function SiteHeader({ menu, contact }: Props) {
             <Link href={`/${lang}`} className="header__logo header__logo--pair" onClick={close}>
               <Wordmark brand="forme" />
               <span className="header__divider" />
-              <Wordmark brand="siena" />
+              <Wordmark brand="sienna" />
             </Link>
           )}
           <nav className="header__nav" aria-label="Main">

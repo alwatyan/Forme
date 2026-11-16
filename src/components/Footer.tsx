@@ -21,8 +21,8 @@ export function Footer({ lang, t, settings }: { lang: Locale; t: Dictionary; set
           )}
         </div>
         <div>
-          <Link href={`/${lang}/siena`} className="footer__brand">
-            <Wordmark brand="siena" />
+          <Link href={`/${lang}/sienna`} className="footer__brand">
+            <Wordmark brand="sienna" />
           </Link>
           <p className="muted">{t.sienaLine}</p>
           {settings.sienaInstagram && (
@@ -45,7 +45,7 @@ export function Footer({ lang, t, settings }: { lang: Locale; t: Dictionary; set
           {settings.email && <a href={`mailto:${settings.email}`}>{settings.email}</a>}
         </div>
       </div>
-      <div className="footer__bottom muted">© {new Date().getFullYear()} Formé · Siena</div>
+      <div className="footer__bottom muted">© {new Date().getFullYear()} Formé · Sienna</div>
     </footer>
   )
 }

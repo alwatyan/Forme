@@ -13,7 +13,7 @@ type Section = NonNullable<Homepage['sections']>[number]
 // Shown until the seller builds the home page in the admin panel.
 const fallbackSections: Section[] = [
   { blockType: 'products', title: 'Formé', brand: 'forme', show: 'newest', limit: 8 },
-  { blockType: 'products', title: 'Siena', brand: 'siena', show: 'newest', limit: 8 },
+  { blockType: 'products', title: 'Sienna', brand: 'sienna', show: 'newest', limit: 8 },
 ]
 
 export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {

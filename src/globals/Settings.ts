@@ -28,7 +28,7 @@ export const Settings: GlobalConfig = {
               type: 'row',
               fields: [
                 { name: 'formeTagline', label: 'Formé tagline', type: 'text', localized: true },
-                { name: 'sienaTagline', label: 'Siena tagline', type: 'text', localized: true },
+                { name: 'sienaTagline', label: 'Sienna tagline', type: 'text', localized: true },
               ],
             },
           ],
@@ -71,7 +71,7 @@ export const Settings: GlobalConfig = {
               type: 'row',
               fields: [
                 { name: 'formeInstagram', label: 'Formé Instagram link', type: 'text' },
-                { name: 'sienaInstagram', label: 'Siena Instagram link', type: 'text' },
+                { name: 'sienaInstagram', label: 'Sienna Instagram link', type: 'text' },
               ],
             },
           ],

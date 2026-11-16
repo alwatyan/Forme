@@ -31,6 +31,11 @@ function Media({ value, className, eager }: { value: unknown; className: string;
       className={className}
       src={imageUrl(media, 'large') ?? media.url}
       alt={media.alt ?? ''}
+      style={
+        media.focalX != null && media.focalY != null
+          ? { objectPosition: `${media.focalX}% ${media.focalY}%` }
+          : undefined
+      }
       loading={eager ? 'eager' : 'lazy'}
     />
   )

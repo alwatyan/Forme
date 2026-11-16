@@ -1,4 +1,4 @@
-/* Formé · Siena storefront. Editorial and image-led, after shop437.com. */
+/* Formé · Sienna storefront. Editorial and image-led, after shop437.com. */
 
 :root {
   --bg: #ffffff;
@@ -16,8 +16,8 @@
   --product: var(--font-playfair), var(--font-arabic-serif), Georgia, serif;
 }
 
-/* Siena: warm cream and earthy brown, from its logo. */
-body:has([data-brand='siena']) {
+/* Sienna: warm cream and earthy brown, from its logo. */
+body:has([data-brand='sienna']) {
   --bg: #faf6f1;
   --ink: #4f4337;
   --muted: #8c7f72;
@@ -174,9 +174,9 @@ main {
   aspect-ratio: 432 / 85;
 }
 
-.wordmark--siena {
-  --mark: url('/brand/siena.png');
-  aspect-ratio: 768 / 141;
+.wordmark--sienna {
+  --mark: url('/brand/sienna.png');
+  aspect-ratio: 953 / 141;
 }
 
 /* Buttons */
@@ -652,7 +652,7 @@ body:has(.hero--first) .header[data-solid='false'] {
   padding: clamp(48px, 7vw, 88px) 0 clamp(40px, 6vw, 72px);
 }
 
-.row[data-brand-row='siena'] {
+.row[data-brand-row='sienna'] {
   background: #faf6f1;
   color: #4f4337;
   --soft: #f3ece3;

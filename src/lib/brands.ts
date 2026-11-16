@@ -1,14 +1,14 @@
-export const BRANDS = ['forme', 'siena'] as const
+export const BRANDS = ['forme', 'sienna'] as const
 export type Brand = (typeof BRANDS)[number]
 
 export const brandOptions = [
   { label: 'Formé — Activewear', value: 'forme' },
-  { label: 'Siena — Darra’a (دراعات)', value: 'siena' },
+  { label: 'Sienna — Darra’a (دراعات)', value: 'sienna' },
 ]
 
 export const brandNames: Record<Brand, string> = {
   forme: 'Formé',
-  siena: 'Siena',
+  sienna: 'Sienna',
 }
 
 export function isBrand(value: string): value is Brand {
